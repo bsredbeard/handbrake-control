@@ -1,0 +1,82 @@
+*{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  margin: 0;
+  display: flex;
+}
+button{
+  height: 4em;
+  background: #fff;
+  border: 1px solid #aaa;
+  cursor: pointer;
+}
+.selected, button.selected {
+  border: 4px solid blue;
+}
+
+.drive-selection {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-right: 1px solid #aaa;
+  background-color: #eee;
+}
+
+.drive-selection button {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.meta-selection {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+.title-info{
+  display: flex;
+  background: #ddd;
+  padding: 5px 20px;
+  border: 4px hidden;
+}
+
+.title-number::before {
+  content: 'Title: ';
+  font-weight: bold;
+}
+
+.title-duration {
+  margin-left: 20px;
+}
+
+.title-duration::before {
+  content: 'Duration: ';
+  font-weight: bold;
+}
+
+.disc-title .chapters {
+  margin-left: 30px;
+}
+
+.disc-title .chapters::before {
+  content: 'Chapters';
+  display: block;
+  font-style: italic;
+  font-size: 85%;
+}
+
+.disc-title .title-chapter {
+  display: flex;
+  margin-left: 5px;
+}
+
+.chapter-duration::before {
+  content: 'Duration: ';
+  font-weight: bold;
+}
+
+.chapter-duration {
+  margin-left: 15px;
+}

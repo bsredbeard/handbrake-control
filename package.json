@@ -1,0 +1,23 @@
+{
+  "name": "handbrake-control",
+  "version": "1.0.0",
+  "description": "control handbrake to make ripping DVDs easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mentalspike",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "opn": "^5.1.0",
+    "pug": "^2.0.0-rc.3",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1"
+  }
+}

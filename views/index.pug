@@ -1,0 +1,59 @@
+html(ng-app='disc-ripper')
+  head
+    title Disc Ripper
+    link(rel='stylesheet',href="/content/styles.css")
+  body(ng-controller='handbrakeController as ctrl')
+    .drive-selection
+      h2 Select a drive
+      button(ng-repeat='drive in ctrl.availableDrives',ng-class='{ selected: drive === ctrl.selectedDrive}',ng-click='ctrl.startScan(drive)') {{drive}}
+      .scanning-disc(ng-show='ctrl.scanningDisc') Wait up, I'm scanning the disc
+    .metadata-controls
+      h2 What are you ripping?
+      .meta-selection
+        button(ng-click="ctrl.metaMode='movies'",ng-class="{selected: ctrl.metaMode==='movies'}") movies
+        button(ng-click="ctrl.metaMode='tv'",ng-class="{selected: ctrl.metaMode==='tv'}") tv shows
+      .movie-lookup(ng-show="ctrl.metaMode==='movies'")
+        label Name:
+          input(type='text',ng-model='ctrl.movieTitle',ng-model-options="{ updateOn: 'default blur', debounce: { default: 1500, blur: 0 } }",ng-change='ctrl.searchMovies(ctrl.movieTitle)')
+        input(type="button",value="Search")
+        .search-progress(ng-show='ctrl.movieSearching') Searching for awesome flicks...
+        .movie-results(ng-show='ctrl.movieResults')
+          .empty-results(ng-hide='ctrl.movieResults.length') Sorry, that search didn't turn up anything.
+          .results(ng-show='ctrl.movieResults.length')
+            .item(ng-repeat='movie in ctrl.movieResults')
+              .banner movie banner
+              .title movie title
+      .tv-lookup(ng-show="ctrl.metaMode==='tv'")
+        label Name:
+          input(type='text',ng-model='ctrl.tvTitle',ng-model-options="{ updateOn: 'default blur', debounce: { default: 1500, blur: 0 } }",ng-change='ctrl.searchTV(ctrl.tvTitle)')
+        input(type="button",value="Search")
+        .search-progress(ng-show='ctrl.tvSearching') Searching for awesome flicks...
+        .tv-results(ng-show='ctrl.tvResults')
+          .empty-results(ng-hide='ctrl.tvResults.length') Sorry, that search didn't turn up anything.
+          .results
+            .item(ng-repeat='series in ctrl.tvResults')
+              .banner
+                img(ng-src='{{series.banner}}')
+              .title {{series.seriesName}} ({{series.firstAired}})
+        .season-list
+    .disc-info(ng-show='ctrl.discInformation')
+      .disc-title(ng-repeat='(title,titleData) in ctrl.discInformation',ng-class='{selected: titleData.selected}')
+        label.title-info
+          input(type='checkbox',ng-model='titleData.selected')
+          .title-number {{title}}
+          .title-duration {{titleData.duration | duration}}
+        .chapters
+          .title-chapter(ng-repeat='chapter in titleData.chapters')
+            .chapter-number {{chapter.label}}
+            .chapter-duration {{chapter | duration }}
+    .output-controls(ng-show='ctrl.discInformation')
+      .preset-selection
+        h2 Select a preset
+        select(ng-model='ctrl.selectedPreset',ng-options='opt for opt in ctrl.availablePresets')
+    .credits
+      .tv
+        p TV lookup is provided via API access to
+          a(href='https://thetvdb.com/') The TVDB
+          | - a user-contributed and maintained database of television shows.
+    script(language='javascript',src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.min.js')
+    script(language='javascript',src='/content/app.js')
